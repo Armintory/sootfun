@@ -1,0 +1,70 @@
+<pre>
+    <div class="language">     
+        <span>Python</span>
+    </div> 
+    <code>
+        # import required libraries
+        import os
+        from telethon import TelegramClient, events
+        from pydub import AudioSegment
+        from io import BytesIO
+
+        # set up Telegram API credentials and bot token
+        API_ID = @Sootfun_Bot
+        API_HASH = https://github.com/jiaaro/pydub#getting-ffmpeg
+        BOT_TOKEN = 5955245262:AAHjMeIaRPyqvKvPbSqs9HfrrChNu7Re02A
+
+        # create TelegramClient instance
+        client = TelegramClient('session_name', API_ID, API_HASH)
+
+        # define a function to play voice messages
+        async def play_voice(client, event, voice_path):
+            # get the chat the message was sent in
+            chat = await event.get_chat()
+
+            # load the voice message file
+            voice = AudioSegment.from_file(voice_path, format='wav')
+
+            # convert the voice message to Ogg format for sending as a voice note
+            voice_io = BytesIO()
+            voice.export(voice_io, format='ogg')
+            voice_io.seek(0)
+
+            # send the voice note to the chat
+            await client.send_file(chat, voice_io, voice_note=True)
+
+        # define a handler for the /start command
+        @client.on(events.NewMessage(pattern='/start'))
+        async def start(event):
+            # send a welcome message
+            await event.respond('Welcome to my voice bot!')
+
+            # stop event propagation to avoid triggering other handlers
+            raise events.StopPropagation
+
+        # define a handler for the /play command
+        @client.on(events.NewMessage(pattern='/play'))
+        async def play(event):
+            # get the chat the message was sent in
+            chat = await event.get_chat()
+
+            # check if the message has a voice message file
+            if event.message.voice:
+                # download the voice message file
+                voice_file = await event.message.download_media()
+
+                # play the voice message
+                await play_voice(client, event, voice_file)
+
+            else:
+                # send an error message if the message does not have a voice message file
+                await client.send_message(chat, 'No voice message found.')
+
+            # stop event propagation to avoid triggering other handlers
+            raise events.StopPropagation
+
+        # start the client and run it until disconnected
+        with client:
+            client.run_until_disconnected()
+    </code> 
+</pre>
