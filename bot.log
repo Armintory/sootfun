@@ -1,0 +1,32 @@
+nohup: ignoring input
+🤖 SootFun Bot started automatically
+ * Serving Flask app 'app'
+ * Debug mode: off
+2025-08-16 09:53:58,712 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+2025-08-16 09:53:58,712 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+Exception in thread Thread-1 (main):
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/threading.py", line 1038, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.11/threading.py", line 975, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/ubuntu/sootfun_bot/bot.py", line 354, in main
+    application.run_polling()
+  File "/home/ubuntu/sootfun_bot/venv/lib/python3.11/site-packages/telegram/ext/_application.py", line 839, in run_polling
+    return self.__run(
+           ^^^^^^^^^^^
+  File "/home/ubuntu/sootfun_bot/venv/lib/python3.11/site-packages/telegram/ext/_application.py", line 1031, in __run
+    loop = asyncio.get_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/events.py", line 677, in get_event_loop
+    raise RuntimeError('There is no current event loop in thread %r.'
+RuntimeError: There is no current event loop in thread 'Thread-1 (main)'.
+/usr/lib/python3.11/threading.py:1040: RuntimeWarning: coroutine 'Updater.start_polling' was never awaited
+  self._invoke_excepthook(self)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+2025-08-16 09:54:10,570 - werkzeug - INFO - 10.233.235.1 - - [16/Aug/2025 09:54:10] "GET / HTTP/1.1" 200 -
+2025-08-16 09:54:10,626 - werkzeug - INFO - 10.233.235.1 - - [16/Aug/2025 09:54:10] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-08-16 09:55:35,305 - werkzeug - INFO - 10.233.235.1 - - [16/Aug/2025 09:55:35] "HEAD / HTTP/1.1" 200 -
